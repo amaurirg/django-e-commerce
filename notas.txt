@@ -1,0 +1,33 @@
+- Criar repositório no Github
+    https://github.com/<usuario>
+- Clonar o repositório para a máquina local
+    git clone <url_repositorio>
+- Criar o ambiente virtual
+    Pyenv ou Virtualenv
+- Instalar Django
+    pip install django
+- Criar o projeto
+    django-admin startproject ecommerce .
+- Criar a app
+    django-admin startapp core
+- Em ecommerce/settings.py:
+    - Alterar:
+        LANGUAGE_CODE = 'pt-br'
+        TIME_ZONE = 'America/Sao_Paulo'
+    - Informar a app core em INSTALLED_APPS:
+        'core',
+- Em core/views.py:
+    - Criar a primeira view:
+        def index(request):
+            return HttpResponse("Hello World")
+- Em ecommerce/urls.py:
+    - Criar a rota:
+        path('', index, name='index'),
+- Em core/:
+    - Criar a pasta templates:
+        - Dentro dessa pasta criar o arquivo index.html
+- Em core/views.py:
+    - Mudamos a view indes:
+        def index(request):
+            return render(request, 'index.html')
+

@@ -1,0 +1,3 @@
+{{ title|capfirst }} => Primeira letra maiúscula
+{{ forloop.last }} => dentro do for representa o último item
+{{ forloop.counter }} => dentro do for representa a contagem dos itens
