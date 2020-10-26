@@ -143,3 +143,6 @@ Agora vamos para as views:
     <li><a href="{% url 'product_list' %}">Acessórios</a></li>
     <li><a href="{% url 'product_list' %}">Celulares</a></li>
     <a href="{% url 'contact' %}">Contato</a>
+
+
+***** PRÓXIMO VÍDEO 11 *****
