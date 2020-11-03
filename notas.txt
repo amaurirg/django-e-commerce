@@ -146,3 +146,42 @@ Agora vamos para as views:
 
 
 ***** PRÓXIMO VÍDEO 11 *****
+
+Vídeo 20
+========
+
+CONTEXT_PROCESSORS
+
+Como o menu tem que mostrar as categorias em todas as páginas, usamos context_processors.
+Se colocarmos apenas em index.html, os itens do menu Categorias será mostrado porém ao acessarmos outra página não.
+No settings.py, em TEMPLATES, estão especificados e podemos colocar os nossos.
+Criamos um arquivo context_processors.py na app catalog.
+- Em django-e-commerce/catalog/context_processors.py:
+    from catalog.models import Category
+
+
+    def categories(request):
+        return {
+            'categories': Category.objects.all()
+        }
+
+- Em ecommerce/settings.py:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                    # apps
+                    'catalog.context_processors.categories',
+                ],
+            },
+        },
+    ]
+
+***** PRÓXIMO VÍDEO 21 *****
