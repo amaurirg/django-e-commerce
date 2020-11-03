@@ -1,3 +1,5 @@
+*** TODOS OS ARQUIVOS QUE PRECISAREM SER INSERIDOS ESTÃO NO DIRETÓRIO DO CURSO ***
+
 - Criar repositório no Github
     https://github.com/<usuario>
 - Clonar o repositório para a máquina local
@@ -11,23 +13,136 @@
 - Criar a app
     django-admin startapp core
 - Em ecommerce/settings.py:
-    - Alterar:
-        LANGUAGE_CODE = 'pt-br'
-        TIME_ZONE = 'America/Sao_Paulo'
-    - Informar a app core em INSTALLED_APPS:
+  - Alterar:
+      LANGUAGE_CODE = 'pt-br'
+      TIME_ZONE = 'America/Sao_Paulo'
+  - Informar a app core em INSTALLED_APPS:
         'core',
 - Em core/views.py:
-    - Criar a primeira view:
-        def index(request):
-            return HttpResponse("Hello World")
+  - Criar a primeira view:
+      def index(request):
+          return HttpResponse("Hello World")
 - Em ecommerce/urls.py:
-    - Criar a rota:
-        path('', index, name='index'),
+  - Criar a rota:
+      path('', index, name='index'),
 - Em core/:
-    - Criar a pasta templates:
-        - Dentro dessa pasta criar o arquivo index.html
+  - Criar a pasta templates:
+      - Dentro dessa pasta colar o arquivo index.html
 - Em core/views.py:
-    - Mudamos a view indes:
-        def index(request):
-            return render(request, 'index.html')
+  - Mudamos a view indes:
+      def index(request):
+          return render(request, 'index.html')
 
+- Em core/:
+  - Criar a pasta static e colar a pasta assets para dentro
+
+- Em core/templates/index.html:
+  - Informar que será usado a biblioteca static:
+      <!DOCTYPE html>
+      {% load static %}
+      <html lang="pt-br">
+
+  - Crie um arquivo base.html e copie todo o conteúdo de index.html:
+      - Altere <title> para:
+          <title>{% block title %}Django E-Commerce{% endblock %}</title>
+
+      - Recorte essa parte do código:
+          <div class="jumbotron page-header">
+              <h1>Django E-Commerce</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <p><a class="btn btn-primary">Saiba mais</a></p>
+          </div>
+
+      - Coloque o block no lugar:
+          <div class="container">
+              {% block container %}{% endblock %}
+          <footer>
+
+      - E cole em core/templates/index.html com a especificação na primeira linha:
+          {% extends base.html %}
+
+          {% block container %}
+              <div class="jumbotron page-header">
+                  <h1>Django E-Commerce</h1>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  <p><a class="btn btn-primary">Saiba mais</a></p>
+              </div>
+          {% endblock %}
+
+          Tudo que estiver dentro desse block container será mostrado dentro de base.html no local que especificamos {% block container %}{% endblock %}
+
+          O block title não é necessário para index já que será o mesmo nome.
+
+Vamos criar mais templates que extenderão de base.html:
+  contact.html
+  product.html
+  product_list.html
+
+Vamos incluir parte dos códigos HTML que estão nos arquivos disponibilizados no diretório.
+
+- Em core/templates/contact.html:
+    {% extends "base.html" %}
+
+    {% block title %}
+      Contato | {{ block.super }}
+    {% endblock %}
+
+    {% block container %}
+      <div class="page-header">...</div>
+    {% endblock %}
+
+- Em core/templates/product_list.html:
+    {% extends "base.html" %}
+
+    {% block title %}
+      Listagem de Produtos | {{ block.super }}
+    {% endblock %}
+
+    {% block container %}
+      <div class="page-header">...</div>
+      <div class="row">...</div>
+    {% endblock %}
+
+- Em core/templates/product.html:
+    {% extends "base.html" %}
+
+    {% block title %}
+      Produto | {{ block.super }}
+    {% endblock %}
+
+    {% block container %}
+      <div class="page-header">...</div>
+      <div class="row">...</div>
+    {% endblock %}
+
+Agora vamos para as views:
+- Em core/views.py, definimos mais três views:
+    def contact(request):
+        return render(request, 'contact.html')
+
+
+    def product_list(request):
+        return render(request, 'product_list.html')
+
+
+    def product(request):
+        return render(request, 'product.html')
+
+- Em ecommerce/urls.py:
+    path('contato/', contact, name='contact'),
+    path('produtos/', product_list, name='product_list'),
+    path('produto/', product, name='product'),
+
+    path(<url>, <view>, <nome>)
+    O nome serve para chamarmos as views dentro de base.html.
+
+- Em core/templates/base.html:
+    <a href="{% url 'index' %}">Início</a>
+    <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'product_list' %}"...
+    <li><a href="{% url 'product_list' %}">Notebooks</a></li>
+    <li><a href="{% url 'product_list' %}">Acessórios</a></li>
+    <li><a href="{% url 'product_list' %}">Celulares</a></li>
+    <a href="{% url 'contact' %}">Contato</a>
+
+
+***** PRÓXIMO VÍDEO 11 *****
