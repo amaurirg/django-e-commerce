@@ -185,3 +185,7 @@ Criamos um arquivo context_processors.py na app catalog.
     ]
 
 ***** PRÓXIMO VÍDEO 22 *****
+
+
+Para testes, instalar o mommy para preenchimento de dados
+  pip install model_mommy

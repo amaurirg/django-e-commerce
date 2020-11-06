@@ -1,17 +1,19 @@
 from django.test import TestCase, Client
+from django.urls import reverse
 
 
 class IndexViewTestCase(TestCase):
     def setUp(self):
         # Client simula o navegador
         self.client = Client()
-        self.response_url_index = self.client.get('/')
+        self.url = reverse('index')
+        self.response = self.client.get(self.url)
 
     def tearDown(self):
         pass
 
     def test_status_code(self):
-        self.assertEqual(self.response_url_index.status_code, 200)
+        self.assertEquals(self.response.status_code, 200)
 
     def test_template_used(self):
-        self.assertTemplateUsed(self.response_url_index, 'index.html')
+        self.assertTemplateUsed(self.response, 'index.html')
