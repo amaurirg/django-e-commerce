@@ -189,12 +189,68 @@ Criamos um arquivo context_processors.py na app catalog.
 Para testes, instalar o mommy para preenchimento de dados
   pip install model_mommy
 
+Para renderizar componentes com atributos/classes no template:
+  pip install django-widget-tweaks
+
 
 MIGRATE NO HEROKU
 =================
   heroku run python manage.py migrate
 
 
+CLASS BASED VIEWS
+=================
+http://ccbv.co.uk/
 
-***** PRÓXIMO VÍDEO 28 *****
+
+- Em catalog/views.py:
+    class ProductListView(generic.ListView):
+        model = Product
+        template_name = 'catalog/product_list.html'
+        context_object_name = 'products'
+
+    product_list = ProductListView.as_view()
+
+    model: indica qual o modelo. Já faz a lógica Product.objects.all()
+    template_name: nome do template
+    context_object_name: nome da variável de contexto para o template (opcional)
+
+
+    class CategoryListView(generic.ListView):
+      template_name = 'catalog/category.html'
+      context_object_name = 'product_list'
+
+      def get_queryset(self):
+          return Product.objects.filter(category__slug=self.kwargs['slug'])
+
+          get_queryset: ListView possui esse método e sobrescrevemos-o. É a mesma coisa em ambos os casos:
+            model = Category
+            OU
+            queryset = Category.objects.all()
+
+            Nesse método podemos acessar:
+              self.request
+              self.kwargs
+              self.args
+
+              Ao invés da forma implantada, podemos fazer também:
+                  def get_queryset(self):
+                    category = get_object_or_404(Category, slug=self.kwargs['slug']
+                    return Product.objects.filter(category=category)
+
+            category__slug: acessando o slug através do lookup, como __icontains por exemplo.
+
+      def get_context_data(self, **kwargs):
+          context = super(CategoryListView, self).get_context_data(**kwargs)
+          context['current_category'] = get_object_or_404(Category, slug=self.kwargs['slug'])
+          return context
+
+          get_context_data: método que sobrescrevemos para incluir a variável current_category para o template.
+          get_object_or_404: Se a categoria não existir, retorna 404 (Página não encontrada)
+
+    category = CategoryListView.as_view()
+
+
+
+***** PRÓXIMO VÍDEO 34 *****
 
