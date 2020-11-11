@@ -3,7 +3,7 @@
 <html lang="pt-br">
 <head>
 	<meta charset="utf-8">
-	<title>{% block title %}Django E-Commerce{% endblock %}</title>
+	<title>{% block title %}CK Estofados{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<link rel="stylesheet" href="{% static 'assets/bootstrap.min.css' %}" media="screen" />
@@ -13,7 +13,7 @@
     <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
-          <a href="" class="navbar-brand">Django E-Commerce</a>
+          <a href="" class="navbar-brand">CK Estofados</a>
           <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -24,6 +24,9 @@
           <ul class="nav navbar-nav">
             <li>
               <a href="{% url 'index' %}">Início</a>
+            </li>
+          <li>
+              <a href="{% url 'catalog:product_list' %}">Produtos</a>
             </li>
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'catalog:product_list' %}"
@@ -40,7 +43,12 @@
 			</li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Minha Conta</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Sair</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Entrar</a></li>
+            <li><a href="{% url 'accounts:register' %}">Registro</a></li>
+            {% endif %}
           </ul>
         </div>
       </div>

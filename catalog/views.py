@@ -7,6 +7,7 @@ class ProductListView(generic.ListView):
     model = Product
     template_name = 'catalog/product_list.html'
     context_object_name = 'products'
+    paginate_by = 3
 
 product_list = ProductListView.as_view()
 
@@ -14,6 +15,7 @@ product_list = ProductListView.as_view()
 class CategoryListView(generic.ListView):
     template_name = 'catalog/category.html'
     context_object_name = 'product_list'
+    paginate_by = 3
 
     def get_queryset(self):
         return Product.objects.filter(category__slug=self.kwargs['slug'])
@@ -24,14 +26,6 @@ class CategoryListView(generic.ListView):
         return context
 
 category = CategoryListView.as_view()
-
-def category(request, slug):
-    category = Category.objects.get(slug=slug)
-    context = {
-        'current_category': category,
-        'product_list': Product.objects.filter(category=category),
-    }
-    return render(request, 'catalog/category.html', context)
 
 
 def product(request, slug):

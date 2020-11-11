@@ -251,6 +251,16 @@ http://ccbv.co.uk/
     category = CategoryListView.as_view()
 
 
+PAGINATION
+==========
+Quando se coloca "paginate_by" em uma ListView, ganha-se no template dois objetos:
+  paginator: objeto do Paginator
+  page_obj: número da página atual
+
+
+
+from django.urls import reverse_lazy
+O reverse_lazy só pega a url quando ele realmente quiser o valor
 
 ***** PRÓXIMO VÍDEO 34 *****
 
