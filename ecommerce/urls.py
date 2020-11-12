@@ -29,6 +29,7 @@ urlpatterns = [
     path('sair/', LogoutView.as_view(next_page='index'), name='logout'),
     path('catalogo/', include('catalog.urls', namespace='catalog')),
     path('conta/', include('accounts.urls', namespace='accounts')),
+    path('compras/', include('checkout.urls', namespace='checkout')),
 ]
 
 if settings.DEBUG:
