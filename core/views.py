@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.views.generic import View, TemplateView, ListView, CreateView
 from django.contrib.auth import get_user_model
 from .forms import ContactForm
-
+from django.contrib import messages
 
 # def index(request):
 #     return render(request, 'index.html')
@@ -29,6 +29,9 @@ def contact(request):
     if form.is_valid():
         form.send_mail()
         success = True
+        # messages.success(request, 'Mensagem enviada com sucesso!')
+    elif request.method == 'POST':
+        messages.error(request, 'Formulário inválido')
     context = {
         'form': form,
         'success': success
