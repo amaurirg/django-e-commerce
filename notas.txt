@@ -262,5 +262,5 @@ Quando se coloca "paginate_by" em uma ListView, ganha-se no template dois objeto
 from django.urls import reverse_lazy
 O reverse_lazy só pega a url quando ele realmente quiser o valor
 
-***** PRÓXIMO VÍDEO 48 *****
+***** PRÓXIMO VÍDEO 59 *****
 

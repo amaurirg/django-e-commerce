@@ -4,37 +4,27 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}CK Estofados{% endblock %}</title>
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible"
-        content="IE=edge"/>
-  <link rel="stylesheet"
-        href="{% static 'assets/bootstrap.min.css' %}"
-        media="screen"/>
-  <link rel="stylesheet"
-        href="{% static 'assets/custom.min.css' %}"
-        media="screen"/>
-  <link rel="stylesheet"
-        href="{% static 'assets/extra.css' %}"
-        media="screen"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <link rel="stylesheet" href="{% static 'assets/bootstrap.min.css' %}" media="screen"/>
+  <link rel="stylesheet" href="{% static 'assets/custom.min.css' %}" media="screen"/>
+  <link rel="stylesheet" href="{% static 'assets/extra.css' %}" media="screen"/>
 </head>
 <body>
+{% comment %}
+<div class="navbar navbar-default navbar-fixed-top" style="background: #4347a4">
+{% endcomment %}
 <div class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
-      <a href=""
-         class="navbar-brand">CK Estofados</a>
-      <button class="navbar-toggle"
-              type="button"
-              data-toggle="collapse"
-              data-target="#navbar-main">
+      <a href="" class="navbar-brand">CK Estofados</a>
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-    <div class="navbar-collapse collapse"
-         id="navbar-main">
+    <div class="navbar-collapse collapse" id="navbar-main">
       <ul class="nav navbar-nav">
         <li>
           <a href="{% url 'index' %}">Início</a>
@@ -43,13 +33,9 @@
           <a href="{% url 'catalog:product_list' %}">Produtos</a>
         </li>
         <li class="dropdown">
-          <a class="dropdown-toggle"
-             data-toggle="dropdown"
-             href="{% url 'catalog:product_list' %}"
-             id="download">Categorias <span
-                  class="caret"></span></a>
-          <ul class="dropdown-menu"
-              aria-labelledby="download">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'catalog:product_list' %}"
+             id="download">Categorias <span class="caret"></span></a>
+          <ul class="dropdown-menu" aria-labelledby="download">
             {% for category in categories %}
               <li><a href="{{ category.get_absolute_url }}">{{ category }}</a></li>
             {% endfor %}
@@ -66,6 +52,7 @@
           <li><a href="{% url 'login' %}">Entrar</a></li>
           <li><a href="{% url 'accounts:register' %}">Registro</a></li>
         {% endif %}
+        <li><a href="{% url 'checkout:cart_item' %}">Carrinho</a></li>
       </ul>
     </div>
   </div>
