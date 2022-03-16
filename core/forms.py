@@ -13,7 +13,7 @@ class ContactForm(forms.Form):
         email = self.cleaned_data['email']
         message = self.cleaned_data['message']
         message_body = f"Nome: {name}\nE-mail: {email}\n{message}"
-        subject = "Contato do Django E-Commerce"
+        subject = "CK Estofados"
         sender = settings.DEFAULT_FROM_EMAIL
         recipient = settings.DEFAULT_FROM_EMAIL
         send_mail(subject, message_body, sender, [recipient])
